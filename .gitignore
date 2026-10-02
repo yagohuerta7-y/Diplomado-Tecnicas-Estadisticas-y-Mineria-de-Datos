@@ -65,7 +65,7 @@ poetry.lock
 logs/
 
 # Datos y modelos (no versionar archivos grandes)
-*.csv
+Unidad_2/Data/Traffic_Violations.csv
 *.tsv
 *.parquet
 *.h5
