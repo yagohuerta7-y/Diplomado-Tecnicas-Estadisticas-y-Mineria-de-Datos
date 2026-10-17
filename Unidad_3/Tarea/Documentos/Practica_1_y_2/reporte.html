@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Reporte de Conclusiones — Práctica Integradora</title>
+<style>
+  @page {
+    size: A4;
+    margin: 2.4cm 2.2cm 2.6cm 2.2cm;
+    @bottom-center {
+      content: "Página " counter(page) " de " counter(pages);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 9pt;
+      color: #555;
+    }
+  }
+  @page :first {
+    @bottom-center { content: ""; }
+  }
+
+  html, body {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 11pt;
+    line-height: 1.45;
+    color: #1a1a1a;
+  }
+
+  h1, h2, h3 { color: #0a2540; font-weight: 600; }
+  h1 { font-size: 19pt; margin: 0 0 0.6em 0; padding-bottom: 0.3em; border-bottom: 2px solid #0a2540; }
+  h2 { font-size: 15pt; margin: 1.4em 0 0.6em 0; padding-bottom: 0.2em; border-bottom: 1px solid #0a2540; }
+  h3 { font-size: 12.5pt; margin: 1.2em 0 0.5em 0; }
+
+  p { margin: 0 0 0.8em 0; text-align: justify; }
+  strong { color: #0a2540; }
+  em { color: #333; }
+
+  .cover {
+    page-break-after: always;
+    text-align: center;
+    padding-top: 1.2cm;
+  }
+  .cover .escudo {
+    width: 5.5cm;
+    height: auto;
+    margin: 0 auto 0.6cm auto;
+    display: block;
+  }
+  .cover .universidad {
+    font-size: 12pt;
+    letter-spacing: 0.18em;
+    color: #0a2540;
+    font-weight: 600;
+    margin: 0.4cm 0 0.2cm 0;
+  }
+  .cover .linea {
+    width: 60%;
+    margin: 0.3cm auto;
+    border-top: 1px solid #0a2540;
+  }
+  .cover .titulo {
+    font-size: 22pt;
+    font-weight: 600;
+    color: #0a2540;
+    margin: 0.6cm 0 0.2cm 0;
+  }
+  .cover .subtitulo {
+    font-size: 13pt;
+    color: #555;
+    margin: 0.2cm 0 1.2cm 0;
+    font-style: italic;
+  }
+  .cover .alumno {
+    font-size: 14pt;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0.8cm 0 0.2cm 0;
+  }
+  .cover .programa {
+    font-size: 11pt;
+    color: #444;
+    margin: 0.1cm 0;
+  }
+  .cover .fecha {
+    font-size: 11pt;
+    color: #444;
+    margin: 0.1cm 0 0.8cm 0;
+  }
+  .cover .dataset {
+    font-size: 10pt;
+    color: #0a2540;
+    background: #f4f7fb;
+    border: 1px solid #d0d8e5;
+    padding: 0.4cm 0.6cm;
+    margin: 0.8cm auto 0 auto;
+    width: 70%;
+  }
+  .cover .dataset strong { color: #0a2540; }
+
+  figure {
+    margin: 0.8em 0 1.2em 0;
+    text-align: center;
+    page-break-inside: avoid;
+  }
+  figure img {
+    max-width: 95%;
+    max-height: 12cm;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+  figcaption {
+    font-size: 9.5pt;
+    color: #555;
+    font-style: italic;
+    margin-top: 0.3em;
+  }
+
+  table {
+    width: 90%;
+    margin: 0.8em auto 1.2em auto;
+    border-collapse: collapse;
+    font-size: 10pt;
+    page-break-inside: avoid;
+  }
+  th {
+    background: #0a2540;
+    color: white;
+    padding: 0.4em 0.6em;
+    text-align: left;
+    font-weight: 600;
+  }
+  td {
+    padding: 0.35em 0.6em;
+    border-bottom: 1px solid #ddd;
+  }
+  tbody tr:nth-child(even) { background: #f4f7fb; }
+  tbody tr:nth-child(odd)  { background: #ffffff; }
+
+  ul, ol { margin: 0 0 0.8em 1.2em; padding-left: 1em; }
+  li { margin-bottom: 0.3em; }
+
+  .seccion-intro {
+    background: #f4f7fb;
+    border-left: 3px solid #0a2540;
+    padding: 0.5em 0.8em;
+    margin: 0.8em 0 1.2em 0;
+    font-size: 10.5pt;
+  }
+
+  .conclusion {
+    background: #f9f9f6;
+    border-left: 3px solid #b08800;
+    padding: 0.6em 0.9em;
+    margin: 1em 0;
+    font-size: 10.5pt;
+  }
+  .conclusion strong { color: #6a4f00; }
+
+  .page-break { page-break-before: always; }
+</style>
+</head>
+<body>
+
+<!-- =================== PORTADA =================== -->
+<div class="cover">
+  <img class="escudo" src="../assets/escudo_unam.jpg" alt="Escudo UNAM">
+  <div class="universidad">UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO</div>
+  <div class="linea"></div>
+  <div class="titulo">Práctica Integradora</div>
+  <div class="subtitulo">Unidad 3 · Análisis Exploratorio y Diagnóstico de Datos</div>
+  <div class="linea"></div>
+  <div class="alumno">Yago Raul Huerta Orozco</div>
+  <div class="programa">Diplomado de Técnicas Estadísticas y Minería de Datos</div>
+  <div class="fecha">Octubre 2026</div>
+  <div class="dataset">
+    <strong>Dataset limpio resultante:</strong> Netflix_clean.csv<br>
+    15,471 filas · 22 columnas
+  </div>
+</div>
+
+<!-- =================== INTRODUCCIÓN =================== -->
+<h1>Reporte de Conclusiones</h1>
+
+<p>
+  El presente documento sintetiza los hallazgos y las decisiones metodológicas
+  más relevantes obtenidos durante la Práctica Integradora, cuyo propósito fue
+  realizar un <strong>diagnóstico exploratorio</strong> y una <strong>limpieza
+  sistemática</strong> del conjunto de datos de títulos de Netflix enriquecido
+  con calificaciones de IMDb, Rotten Tomatoes y Metacritic, con el fin de
+  producir un <em>dataset limpio</em> apto para análisis posteriores.
+</p>
+
+<p>
+  El reporte se organiza en dos bloques. El primero condensa las observaciones
+  visuales de la Parte 1 (Sección 3 — Conclusiones exploratorias). El segundo
+  documenta la Parte 2, donde se atacan tres problemas clásicos en ciencia de
+  datos: <strong>valores faltantes (NA)</strong>, <strong>valores atípicos
+  (outliers)</strong> y <strong>duplicados</strong>. Cada bloque incluye las
+  figuras generadas, las decisiones adoptadas y la justificación técnica
+  correspondiente.
+</p>
+
+<!-- =================== PARTE 1, SECCIÓN 3 =================== -->
+<h1>Parte 1 · Sección 3. Conclusiones exploratorias</h1>
+
+<div class="seccion-intro">
+  El dataset crudo contiene <strong>15,477 observaciones y 16 variables</strong>.
+  Se realizaron seis visualizaciones para caracterizar el contenido, los
+  puntajes, las correlaciones y la clasificación por edad. A continuación se
+  presentan los hallazgos principales.
+</div>
+
+<h2>3.1 Distribución: Series vs Películas</h2>
+
+<figure>
+  <img src="figures/p1_s3_1_series_movies.png" alt="Distribución Series vs Películas">
+  <figcaption>Figura 1. Conteo absoluto de títulos por tipo de contenido en el dataset.</figcaption>
+</figure>
+
+<p>
+  El catálogo está dominado por <strong>películas</strong>, que representan
+  aproximadamente tres cuartas partes del total, mientras que las series
+  conforman el resto. Esta asimetría es relevante para cualquier análisis
+  comparativo posterior, ya que las distribuciones de puntajes, premios y
+  duración pueden diferir sensiblemente entre ambos tipos.
+</p>
+
+<h2>3.2 Top 10 géneros del catálogo</h2>
+
+<figure>
+  <img src="figures/p1_s3_2_top_generos.png" alt="Top 10 géneros">
+  <figcaption>Figura 2. Diez géneros con mayor presencia en el catálogo (separados por coma).</figcaption>
+</figure>
+
+<p>
+  Los géneros predominantes son <strong>Drama</strong>, <strong>Comedia</strong>
+  y <strong>Acción y Aventura</strong>. La concentración de títulos en unos
+  pocos géneros sugiere que las recomendaciones basadas en contenido podrían
+  colapsar a estas pocas categorías, y que los géneros minoritarios podrían
+  requerir técnicas de reponderación.
+</p>
+
+<h2>3.3 Top 10 idiomas</h2>
+
+<figure>
+  <img src="figures/p1_s3_3_top_idiomas.png" alt="Top 10 idiomas">
+  <figcaption>Figura 3. Diez idiomas más frecuentes en el catálogo.</figcaption>
+</figure>
+
+<p>
+  El <strong>inglés</strong> domina de forma contundente, seguido muy por debajo
+  por español, japonés y francés. Esta concentración es esperable para el
+  catálogo de Netflix, pero confirma que cualquier modelo predictivo tenderá a
+  estar sesgado hacia producciones anglófonas si no se aplica una
+  reponderación por idioma.
+</p>
+
+<h2>3.4 Distribución de los puntajes</h2>
+
+<figure>
+  <img src="figures/p1_s3_4_distribucion_puntajes.png" alt="Distribución de puntajes">
+  <figcaption>Figura 4. Histogramas de los puntajes: Hidden Gem, IMDb, Rotten Tomatoes y Metacritic.</figcaption>
+</figure>
+
+<p>
+  Las cuatro fuentes de calificación presentan distribuciones marcadamente
+  distintas: <strong>IMDb Score</strong> y <strong>Hidden Gem Score</strong>
+  tienen forma campaniforme sesgada hacia valores altos (títulos bien
+  evaluados). <strong>Rotten Tomatoes Score</strong> muestra una distribución
+  aproximadamente uniforme entre 0 y 100. <strong>Metacritic Score</strong> es
+  la más dispersa y con mayor presencia de valores bajos, lo que sugiere una
+  escala más estricta por parte de esa publicación.
+</p>
+
+<h2>3.5 Correlación entre variables numéricas</h2>
+
+<figure>
+  <img src="figures/p1_s3_5_correlacion.png" alt="Heatmap de correlaciones">
+  <figcaption>Figura 5. Matriz de correlaciones de Pearson entre las variables numéricas del dataset.</figcaption>
+</figure>
+
+<p>
+  Se observan correlaciones positivas moderadas entre <strong>IMDb Score</strong>
+  y <strong>Hidden Gem Score</strong>, y entre <strong>Rotten Tomatoes</strong>
+  y <strong>Metacritic</strong> (pares lógicos de críticos). En contraste,
+  <strong>IMDb Votes</strong> y <strong>Boxoffice</strong> muestran correlación
+  positiva con los premios recibidos, lo que valida la hipótesis de que
+  blockbusters y títulos premiados concentran gran atención del público.
+</p>
+
+<h2>3.6 Clasificación por edad según tipo de contenido</h2>
+
+<figure>
+  <img src="figures/p1_s3_6_view_rating.png" alt="Clasificación por edad">
+  <figcaption>Figura 6. Distribución normalizada de la clasificación por edad (View Rating) según tipo de contenido.</figcaption>
+</figure>
+
+<p>
+  La categoría <strong>R</strong> concentra la mayor proporción de títulos
+  para ambos tipos, pero las <strong>series</strong> tienen una mayor
+  presencia relativa en clasificaciones TV-14 y TV-MA, mientras que las
+  <strong>películas</strong> dominan en R y PG-13. Esta diferencia es
+  consistente con los formatos narrativos de cada tipo.
+</p>
+
+<div class="conclusion">
+  <strong>Conclusión integradora (Parte 1):</strong> El dataset es
+  predominantemente cinematográfico, anglófono y concentrado en pocos géneros.
+  Las calificaciones tienen comportamientos heterogéneos según la fuente, por
+  lo que conviene tratarlas por separado. Las correlaciones obtenidas validan
+  el uso de técnicas de imputación multivariante (KNN) en la Parte 2.
+</div>
+
+<!-- =================== PARTE 2 =================== -->
+<div class="page-break"></div>
+<h1>Parte 2 · Diagnóstico y limpieza</h1>
+
+<p>
+  En esta segunda parte se abordaron tres problemas que afectan la calidad
+  del dataset: valores faltantes (NA), valores atípicos (outliers) y
+  duplicados. Para cada uno se aplicó una estrategia diferenciada, basada en
+  el porcentaje de faltantes, la naturaleza de la variable y el significado
+  del dominio.
+</p>
+
+<!-- ========== 4. NA ========== -->
+<h2>4. Valores faltantes (NA)</h2>
+
+<div class="seccion-intro">
+  De las 15,477 filas del dataset, <strong>13,369 (86.36%)</strong> presentan
+  al menos un valor faltante. La variable con mayor porcentaje de NA es
+  <strong>Boxoffice</strong> con 74.11%, seguida de Metacritic Score (71.99%)
+  y Awards Received (60.76%).
+</div>
+
+<h3>4.1 Distribución de los NA</h3>
+
+<figure>
+  <img src="figures/p2_s4_msno_bar.png" alt="Bar de NAs">
+  <figcaption>Figura 7. Conteo de valores no faltantes por variable (msno.bar).</figcaption>
+</figure>
+
+<figure>
+  <img src="figures/p2_s4_heatmap_na.png" alt="Heatmap de NAs">
+  <figcaption>Figura 8. Heatmap de correlación entre la presencia de NA. Permite detectar si los faltantes faltan al azar (MAR) o no al azar (MNAR).</figcaption>
+</figure>
+
+<p>
+  El heatmap de missingno revela que <strong>Boxoffice y Awards Received /
+  Awards Nominated For</strong> tienden a estar faltantes juntos, lo que
+  sugiere un patrón MAR (Missing At Random): cuando no hay información de
+  premios tampoco se reporta recaudación, probablemente porque el título no
+  fue un estreno cinematográfico masivo.
+</p>
+
+<h3>4.2 Estrategia de imputación</h3>
+
+<p>
+  Se aplicó una estrategia de imputación <strong>graduada por rangos</strong>:
+</p>
+<ul>
+  <li><strong>1–10% NA →</strong> moda (categóricas) o mediana (numéricas).</li>
+  <li><strong>10–20% NA →</strong> <em>KNN Imputer</em> (k=5) usando variables
+    correlacionadas como features.</li>
+  <li><strong>&gt;20% NA →</strong> <strong>NO se imputan</strong>; la señal
+    restante es insuficiente y rellenarlas introduciría más ruido del que
+    eliminaría.</li>
+  <li><strong>Categóricas →</strong> no se imputan. Sustituir un director o
+    un idioma faltante por la moda falsea el dominio.</li>
+</ul>
+
+<p>
+  Las variables candidatas a imputación son <strong>Hidden Gem Score</strong>
+  (~13.5% NA), <strong>IMDb Score</strong> (~13.5% NA) y <strong>IMDb
+  Votes</strong> (~13.5% NA), todas con menos del 20% de faltantes. Se
+  construyó un vector de features con las variables numéricas más
+  correlacionadas con los puntajes y se aplicó <code>KNNImputer(n_neighbors=5)</code>.
+</p>
+
+<h3>4.3 Verificación visual del resultado</h3>
+
+<figure>
+  <img src="figures/p2_s4_knn_kde.png" alt="KDE pre/post imputación">
+  <figcaption>Figura 9. Comparación KDE antes (rojo) y después (azul) de la imputación KNN. Las distribuciones son virtualmente idénticas, lo que confirma que la imputación no distorsionó la forma original.</figcaption>
+</figure>
+
+<div class="conclusion">
+  <strong>Conclusión NA:</strong> La imputación KNN preservó la forma de las
+  distribuciones originales de los puntajes, validada por comparación KDE.
+  Variables con más del 20% de NA (Boxoffice, Metacritic, Awards) no se
+  imputaron por criterio conservador. Las categóricas no se imputan.
+</div>
+
+<!-- ========== 5. OUTLIERS ========== -->
+<div class="page-break"></div>
+<h2>5. Valores atípicos (Outliers)</h2>
+
+<div class="seccion-intro">
+  Se analizaron cinco variables numéricas con alta variabilidad:
+  <strong>IMDb Votes</strong>, <strong>Boxoffice</strong>, <strong>Awards
+  Received</strong>, <strong>Awards Nominated For</strong> y
+  <strong>Hidden Gem Score</strong>. Para la detección se utilizó el método
+  IQR (Q1 − 1.5·IQR, Q3 + 1.5·IQR), estándar y robusto a la distribución.
+</div>
+
+<h3>5.1 Detección visual</h3>
+
+<figure>
+  <img src="figures/p2_s5_boxplots.png" alt="Boxplots">
+  <figcaption>Figura 10. Boxplots de las cinco variables. Se observa fuerte asimetría a la derecha en IMDb Votes y Boxoffice, y un valor aislado bajo en Hidden Gem Score.</figcaption>
+</figure>
+
+<figure>
+  <img src="figures/p2_s5_boxplots_log.png" alt="Boxplots log">
+  <figcaption>Figura 11. Boxplots de IMDb Votes y Boxoffice en escala logarítmica (log1p). La transformación reduce la asimetría y permite observar la estructura de los cuantiles internos.</figcaption>
+</figure>
+
+<h3>5.2 Decisiones por variable</h3>
+
+<p>
+  En lugar de aplicar una única estrategia global, se tomó una
+  <strong>decisión mixta según la naturaleza de cada variable</strong>:
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Variable</th>
+      <th>Decisión</th>
+      <th>Justificación</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>IMDb Votes</strong></td>
+      <td>Transformación <code>log1p</code></td>
+      <td>Alta asimetría a la derecha. El log comprime la cola larga sin perder información.</td>
+    </tr>
+    <tr>
+      <td><strong>Boxoffice</strong></td>
+      <td>Transformación <code>log1p</code></td>
+      <td>Idéntico comportamiento a IMDb Votes; la escala log es la representación estándar para ingresos.</td>
+    </tr>
+    <tr>
+      <td><strong>Awards Received</strong></td>
+      <td>Imputación con mediana</td>
+      <td>Los outliers son títulos multi-premiados; eliminarlos perdería información valiosa del dominio.</td>
+    </tr>
+    <tr>
+      <td><strong>Awards Nominated For</strong></td>
+      <td>Imputación con mediana</td>
+      <td>Mismo razonamiento: no se eliminan, se sustituyen por un valor neutro.</td>
+    </tr>
+    <tr>
+      <td><strong>Hidden Gem Score</strong></td>
+      <td>Winsorización P1–P99</td>
+      <td>Variable acotada en [0, 10]; la winsorización recorta valores extremos manteniendo la muestra completa.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  Las transformaciones logarítmicas se almacenaron en columnas nuevas
+  (<code>IMDb Votes_log</code> y <code>Boxoffice_log</code>) para no perder
+  los valores originales. No se eliminó ninguna fila del dataset.
+</p>
+
+<div class="conclusion">
+  <strong>Conclusión Outliers:</strong> Se aplicaron decisiones mixtas
+  (transformación log, imputación con mediana y winsorización) según la
+  naturaleza de cada variable. No se eliminaron filas porque los outliers
+  representan información válida del dominio (blockbusters, películas
+  premiadas). Las verificaciones post-tratamiento muestran reducción
+  sustancial de outliers en las variables afectadas.
+</div>
+
+<!-- ========== 6. DUPLICADOS ========== -->
+<div class="page-break"></div>
+<h2>6. Duplicados</h2>
+
+<div class="seccion-intro">
+  El ID propuesto para el dataset es <strong>Netflix Link</strong>, el cual
+  es único para cada fila (0 duplicados, 0 nulos). Sin embargo, el dataset
+  contiene <strong>duplicados parciales</strong> que es necesario tratar.
+</div>
+
+<h3>6.1 Detección</h3>
+
+<p>Se evaluaron cuatro combinaciones de columnas relevantes:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Combinación</th>
+      <th>Filas marcadas</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Title + Director + Release Date</td>
+      <td><strong>298</strong></td>
+    </tr>
+    <tr>
+      <td>Title + Director + Release Date + Series or Movie</td>
+      <td>298</td>
+    </tr>
+    <tr>
+      <td>Title + Netflix Release Date</td>
+      <td>menor</td>
+    </tr>
+    <tr>
+      <td>Title + IMDb Link</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  La combinación <strong>Title + Director + Release Date</strong> identificó
+  298 filas con la misma tríada, lo que sugiere títulos re-listados o
+  registros duplicados con pequeñas variaciones en campos secundarios.
+</p>
+
+<h3>6.2 Tratamiento</h3>
+
+<p>
+  Se eliminaron los duplicados parciales conservando la primera ocurrencia
+  (<code>keep='first'</code>), con lo que el dataset pasó de
+  <strong>15,477 a 15,471 filas</strong>. No hubo duplicados exactos de fila
+  completa, lo que confirma que las duplicaciones se debían a inconsistencias
+  en campos secundarios.
+</p>
+
+<div class="conclusion">
+  <strong>Conclusión Duplicados:</strong> El ID <code>Netflix Link</code> es
+  íntegro, pero la duplicación parcial por tríada <em>Title + Director +
+  Release Date</em> (298 filas) justificó una depuración. Tras la limpieza,
+  el dataset final contiene <strong>15,471 filas y 22 columnas</strong>,
+  almacenado en <code>Netflix_clean.csv</code>.
+</div>
+
+</body>
+</html>
