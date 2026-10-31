@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><title>Reporte Práctica 4 — TURF y Clustering</title>
+<style>
+  @page {
+    size: A4;
+    margin: 2cm 2.2cm 2.2cm 2.2cm;
+    @bottom-center {
+      content: "Página " counter(page) " de " counter(pages);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 9pt;
+      color: #555;
+    }
+  }
+  @page :first {
+    @bottom-center { content: ""; }
+  }
+
+  html, body {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 10.5pt;
+    line-height: 1.45;
+    color: #1a1a1a;
+  }
+
+  h1, h2, h3 { color: #0a2540; font-weight: 600; }
+  h1 { font-size: 19pt; margin: 0 0 0.6em 0; padding-bottom: 0.3em; border-bottom: 2px solid #0a2540; }
+  h2 { font-size: 15pt; margin: 1.4em 0 0.6em 0; padding-bottom: 0.2em; border-bottom: 1px solid #0a2540; }
+  h3 { font-size: 12.5pt; margin: 1.2em 0 0.5em 0; }
+
+  p { margin: 0 0 0.8em 0; text-align: justify; }
+  strong { color: #0a2540; }
+  em { color: #333; }
+
+  .cover {
+    page-break-after: always;
+    text-align: center;
+    padding-top: 1.2cm;
+  }
+  .cover .escudo {
+    width: 5.5cm;
+    height: auto;
+    margin: 0 auto 0.6cm auto;
+    display: block;
+  }
+  .cover .universidad {
+    font-size: 12pt;
+    letter-spacing: 0.18em;
+    color: #0a2540;
+    font-weight: 600;
+    margin: 0.4cm 0 0.2cm 0;
+  }
+  .cover .linea {
+    width: 60%;
+    margin: 0.3cm auto;
+    border-top: 1px solid #0a2540;
+  }
+  .cover .titulo {
+    font-size: 22pt;
+    font-weight: 600;
+    color: #0a2540;
+    margin: 0.6cm 0 0.2cm 0;
+  }
+  .cover .subtitulo {
+    font-size: 13pt;
+    color: #555;
+    margin: 0.2cm 0 1.2cm 0;
+    font-style: italic;
+  }
+  .cover .alumno {
+    font-size: 14pt;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0.8cm 0 0.2cm 0;
+  }
+  .cover .programa {
+    font-size: 10.5pt;
+    color: #444;
+    margin: 0.1cm 0;
+  }
+  .cover .fecha {
+    font-size: 10.5pt;
+    color: #444;
+    margin: 0.1cm 0 0.8cm 0;
+  }
+  .cover .dataset {
+    font-size: 10pt;
+    color: #0a2540;
+    background: #f4f7fb;
+    border: 1px solid #d0d8e5;
+    padding: 0.4cm 0.6cm;
+    margin: 0.8cm auto 0 auto;
+    width: 70%;
+  }
+  .cover .dataset strong { color: #0a2540; }
+
+  figure {
+    margin: 0.8em 0 1.2em 0;
+    text-align: center;
+    page-break-inside: avoid;
+  }
+  figure img {
+    width: auto;
+    max-width: 95%;
+    max-height: 12cm;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+  figcaption {
+    font-size: 9.5pt;
+    color: #555;
+    font-style: italic;
+    margin-top: 0.3em;
+  }
+
+  table {
+    width: 90%;
+    margin: 0.8em auto 1.2em auto;
+    border-collapse: collapse;
+    font-size: 10pt;
+    page-break-inside: avoid;
+  }
+  th {
+    background: #0a2540;
+    color: white;
+    padding: 0.4em 0.6em;
+    text-align: left;
+    font-weight: 600;
+  }
+  td {
+    padding: 0.35em 0.6em;
+    border-bottom: 1px solid #ddd;
+  }
+  tbody tr:nth-child(even) { background: #f4f7fb; }
+  tbody tr:nth-child(odd)  { background: #ffffff; }
+
+  ul, ol { margin: 0 0 0.8em 1.2em; padding-left: 1em; }
+  li { margin-bottom: 0.3em; }
+
+  .seccion-intro {
+    background: #f4f7fb;
+    border-left: 3px solid #0a2540;
+    padding: 0.5em 0.8em;
+    margin: 0.8em 0 1.2em 0;
+    font-size: 10.5pt;
+  }
+
+  .conclusion {
+    background: #f9f9f6;
+    border-left: 3px solid #b08800;
+    padding: 0.6em 0.9em;
+    margin: 1em 0;
+    font-size: 10.5pt;
+  }
+  .conclusion strong { color: #6a4f00; }
+
+  .page-break { page-break-before: always; }
+
+</style></head>
+<body>
+<div class="cover">
+  <img class="escudo" src="../assets/escudo_unam.jpg" alt="Escudo UNAM">
+  <div class="universidad">UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO</div>
+  <div class="linea"></div>
+  <div class="titulo">Práctica 4: TURF y Clustering</div>
+  <div class="subtitulo">Unidad 3 · TURF, K-Means y Clustering jerárquico</div>
+  <div class="linea"></div>
+  <div class="alumno">Yago Raul Huerta Orozco</div>
+  <div class="programa">Diplomado de Técnicas Estadísticas y Minería de Datos</div>
+  <div class="fecha">Octubre 2026</div>
+  <div class="dataset"><strong>Dataset:</strong> Netflix_clean.csv<br>15,330 títulos · TURF con 12 géneros · Clustering con 5 variables</div>
+</div>
+
+<h1>Reporte de análisis</h1>
+
+<h2>1. TURF</h2>
+<p>Se tomaron como elecciones sí/no los 12 géneros con más títulos (Drama, Comedy, Action, Thriller, Romance, Crime, Adventure, Animation, Documentary, Horror, Family y Fantasy). Un género ya es dicotómico, así que no hizo falta un umbral, y hay solapamiento real entre ellos, que es lo que TURF aprovecha. El alcance es el porcentaje de títulos con al menos uno de los géneros elegidos. Se probaron todas las combinaciones de 1 a 7 géneros. Los 1,708 títulos sin género nunca se alcanzan, por lo que el máximo posible es 88.9%.</p>
+
+<table>
+<thead><tr><th>k</th><th>Mejor combinación (TURF)</th><th>Alcance</th><th>Ganancia</th><th>Los k más grandes</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Drama</td><td>40.9%</td><td>+40.9</td><td>40.9%</td></tr>
+<tr><td>2</td><td>Drama, Comedy</td><td>63.6%</td><td>+22.7</td><td>63.6%</td></tr>
+<tr><td>3</td><td>+ Action</td><td>71.3%</td><td>+7.7</td><td>71.3%</td></tr>
+<tr><td>4</td><td>+ Documentary</td><td>77.0%</td><td>+5.7</td><td>74.7%</td></tr>
+<tr><td><strong>5</strong></td><td><strong>+ Thriller</strong></td><td><strong>80.4%</strong></td><td>+3.5</td><td>75.8%</td></tr>
+<tr><td>6</td><td>+ Animation</td><td>83.0%</td><td>+2.5</td><td>76.6%</td></tr>
+<tr><td>7</td><td>+ Horror</td><td>84.2%</td><td>+1.2</td><td>77.7%</td></tr>
+</tbody></table>
+
+<figure><img src="figures/p4_8_turf_alcance.png" style="max-height:6.2cm;max-width:100%"><figcaption>Alcance según el número de géneros (izquierda) y aporte de cada género a la combinación de 5 (derecha).</figcaption></figure>
+
+<div class="conclusion"><strong>Recomendación:</strong> promover <strong>Drama, Comedy, Action, Thriller y Documentary</strong>, con lo que se llega al 80.4% de los títulos (90% del máximo posible) y 1.44 géneros por título alcanzado. Tomar los 5 géneros más grandes (con Romance en lugar de Documentary) se queda en 75.8%. Documentary tiene solo 6.7% de alcance propio, pero casi no se cruza con otros géneros, así que casi todo lo que aporta es nuevo (5.7 puntos). Thriller llega a 17.5% solo, pero se solapa con Drama, Action y Crime y aporta 3.5. Pasar a 6 géneros sumaría menos de 3 puntos.</div>
+
+<h2>2. K-Means</h2>
+<p>Se agruparon los 15,330 títulos con cinco variables: <code>IMDb Score</code>, <code>IMDb Votes (log)</code>, número de géneros, número de países y año de llegada a Netflix. <code>Hidden Gem Score</code> se dejó fuera porque correlaciona -0.79 con los votos. Las variables se estandarizaron. El codo no es muy marcado, pero la inercia baja menos después de k = 3 (de 2 a 3 grupos baja 11,094 y de 3 a 4, 6,103), y el silhouette es máximo en k = 3 (0.243). Se ejecutó también k = 5.</p>
+
+<figure><img src="figures/p4_9_codo.png" style="max-height:5.2cm"><figcaption>Método del codo y silhouette para k de 2 a 10; la línea roja marca k = 3.</figcaption></figure>
+<figure><img src="figures/p4_9_perfil.png" style="max-height:4.8cm"><figcaption>Perfil de los grupos: media estandarizada de cada variable (0 = promedio del catálogo).</figcaption></figure>
+<figure><img src="figures/p4_9_pca.png" style="max-height:6.2cm"><figcaption>Grupos de K-Means proyectados en los dos primeros componentes principales (51.7% de la variabilidad).</figcaption></figure>
+
+<ul>
+<li><strong>Grupo 1, recientes y de poca difusión (40.7%).</strong> Llegaron en 2019 en promedio, están en pocos países (3.3), tienen pocos votos (unos 1,700) y 1.6 géneros. Tienen la calificación más baja (6.20).</li>
+<li><strong>Grupo 2, catálogo global (27.1%).</strong> Disponibles en 33 países en promedio, con calificación media (6.57), pocos votos y 2.1 géneros.</li>
+<li><strong>Grupo 3, establecidos y populares (32.2%).</strong> Llegaron antes (2015.9), tienen muchos votos (unos 24,000), 3.3 géneros y la mejor calificación (6.80).</li>
+</ul>
+<p>Con k = 5 se separan además los títulos de calificación muy baja (4.69, 13.5%), los de buena calificación pero pocos votos (22.1%) y los que casi no tienen géneros (14.6%); el grupo global y el de establecidos se mantienen. Los silhouette de 0.24 indican que los grupos se tocan: son tendencias del catálogo y no clases separadas.</p>
+
+<h2>3. Clustering jerárquico</h2>
+<p>Se aplicaron los métodos single, complete y average (distancia euclidiana, mismas variables estandarizadas, 15,330 títulos). Se eligieron <strong>3 grupos</strong>: en complete el mayor salto de altura (1.59) está entre la unión de 4 a 3 grupos (7.50) y la de 3 a 2 (9.09), y con el mismo número de grupos se puede comparar con K-Means.</p>
+
+<figure><img src="figures/p4_10_dendrogramas.png" style="max-height:6.8cm;max-width:100%"><figcaption>Dendrogramas (truncados a 30 hojas; entre paréntesis, el número de títulos). La línea roja marca el corte en 3 grupos.</figcaption></figure>
+
+<ul>
+<li><strong>Single</strong> encadena: pega los títulos uno por uno a un bloque enorme. Con 3 grupos queda uno con 15,328 títulos y dos títulos aislados (uno con calificación de 1.7 disponible en 35 países y otro con 12 géneros).</li>
+<li><strong>Average</strong> se comporta parecido: 15,191 títulos (99.1%), 135 con muchos géneros (6.8 en promedio) y 4 con calificación de 8.75, unos 10 votos y disponibles en 35 países. Son atípicos más que grupos.</li>
+<li><strong>Complete</strong> es el único con grupos parejos: <strong>multigénero</strong> (13.9%, 4.6 géneros en promedio), <strong>calificación baja y pocos géneros</strong> (41.1%, IMDb 5.76 y 1.55 géneros) y <strong>calificación alta</strong> (45.0%, IMDb 7.16 y 2.3 géneros). En país y año los tres son casi iguales al promedio.</li>
+</ul>
+
+<h2>4. Comparación K-Means vs. jerárquico</h2>
+<table>
+<thead><tr><th>Método (3 grupos)</th><th>Grupo mayor</th><th>Grupo menor</th><th>Silhouette</th><th>Davies-Bouldin</th><th>Calinski-Harabasz</th></tr></thead>
+<tbody>
+<tr><td><strong>K-Means</strong></td><td><strong>40.7%</strong></td><td><strong>4,157</strong></td><td><strong>0.243</strong></td><td><strong>1.52</strong></td><td><strong>4,285</strong></td></tr>
+<tr><td>Jerárquico, complete</td><td>45.0%</td><td>2,138</td><td>0.081</td><td>2.66</td><td>1,448</td></tr>
+<tr><td>Jerárquico, average</td><td>99.1%</td><td>4</td><td>0.179</td><td>1.02</td><td>150</td></tr>
+<tr><td>Jerárquico, single</td><td>99.99%</td><td>1</td><td>0.409</td><td>0.40</td><td>7</td></tr>
+</tbody></table>
+<p style="text-align:center;font-size:9.5pt;color:#555;margin-top:-0.6em"><em>Métricas sobre los 15,330 títulos. Menor Davies-Bouldin y mayor silhouette y Calinski-Harabasz indican grupos mejor definidos.</em></p>
+
+<ul>
+<li>El silhouette de single (0.409) y el Davies-Bouldin de average y single engañan: salen buenos porque unos pocos títulos aislados quedan lejos de todo, pero con 99% de los títulos en un solo grupo la partición no segmenta nada.</li>
+<li>K-Means y complete son los únicos con grupos de tamaño razonable, y K-Means es mejor en las tres métricas (silhouette 0.243 contra 0.081).</li>
+<li>Las particiones casi no se parecen (ARI de 0.018 entre K-Means y complete): K-Means separa sobre todo por países y año de llegada, y complete por calificación y número de géneros.</li>
+</ul>
+
+<h2>5. Conclusiones</h2>
+<ul>
+<li><strong>TURF:</strong> la combinación recomendada es Drama, Comedy, Action, Thriller y Documentary (80.4% del catálogo). Elegir por solapamiento gana 4.6 puntos sobre elegir los géneros más grandes.</li>
+<li><strong>Clustering:</strong> se recomienda <strong>K-Means con k = 3</strong>: grupos balanceados, mejores métricas y una lectura clara (recientes de poca difusión, catálogo global y establecidos populares). El jerárquico complete queda como alternativa si se quiere segmentar por calificación y géneros; single y average se descartan por el encadenamiento.</li>
+<li>Con un silhouette máximo de 0.24, el catálogo no tiene grupos naturales bien separados: los grupos describen tendencias, no categorías.</li>
+</ul>
+</body></html>
