@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><title>Reporte Práctica 3.2 — Clasificación</title>
+<style>
+  @page {
+    size: A4;
+    margin: 2cm 2.2cm 2.2cm 2.2cm;
+    @bottom-center {
+      content: "Página " counter(page) " de " counter(pages);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 9pt;
+      color: #555;
+    }
+  }
+  @page :first {
+    @bottom-center { content: ""; }
+  }
+
+  html, body {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 10.5pt;
+    line-height: 1.45;
+    color: #1a1a1a;
+  }
+
+  h1, h2, h3 { color: #0a2540; font-weight: 600; }
+  h1 { font-size: 19pt; margin: 0 0 0.6em 0; padding-bottom: 0.3em; border-bottom: 2px solid #0a2540; }
+  h2 { font-size: 15pt; margin: 1.4em 0 0.6em 0; padding-bottom: 0.2em; border-bottom: 1px solid #0a2540; }
+  h3 { font-size: 12.5pt; margin: 1.2em 0 0.5em 0; }
+
+  p { margin: 0 0 0.8em 0; text-align: justify; }
+  strong { color: #0a2540; }
+  em { color: #333; }
+
+  .cover {
+    page-break-after: always;
+    text-align: center;
+    padding-top: 1.2cm;
+  }
+  .cover .escudo {
+    width: 5.5cm;
+    height: auto;
+    margin: 0 auto 0.6cm auto;
+    display: block;
+  }
+  .cover .universidad {
+    font-size: 12pt;
+    letter-spacing: 0.18em;
+    color: #0a2540;
+    font-weight: 600;
+    margin: 0.4cm 0 0.2cm 0;
+  }
+  .cover .linea {
+    width: 60%;
+    margin: 0.3cm auto;
+    border-top: 1px solid #0a2540;
+  }
+  .cover .titulo {
+    font-size: 22pt;
+    font-weight: 600;
+    color: #0a2540;
+    margin: 0.6cm 0 0.2cm 0;
+  }
+  .cover .subtitulo {
+    font-size: 13pt;
+    color: #555;
+    margin: 0.2cm 0 1.2cm 0;
+    font-style: italic;
+  }
+  .cover .alumno {
+    font-size: 14pt;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0.8cm 0 0.2cm 0;
+  }
+  .cover .programa {
+    font-size: 10.5pt;
+    color: #444;
+    margin: 0.1cm 0;
+  }
+  .cover .fecha {
+    font-size: 10.5pt;
+    color: #444;
+    margin: 0.1cm 0 0.8cm 0;
+  }
+  .cover .dataset {
+    font-size: 10pt;
+    color: #0a2540;
+    background: #f4f7fb;
+    border: 1px solid #d0d8e5;
+    padding: 0.4cm 0.6cm;
+    margin: 0.8cm auto 0 auto;
+    width: 70%;
+  }
+  .cover .dataset strong { color: #0a2540; }
+
+  figure {
+    margin: 0.8em 0 1.2em 0;
+    text-align: center;
+    page-break-inside: avoid;
+  }
+  figure img {
+    max-width: 95%;
+    max-height: 12cm;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+  figcaption {
+    font-size: 9.5pt;
+    color: #555;
+    font-style: italic;
+    margin-top: 0.3em;
+  }
+
+  table {
+    width: 90%;
+    margin: 0.8em auto 1.2em auto;
+    border-collapse: collapse;
+    font-size: 10pt;
+    page-break-inside: avoid;
+  }
+  th {
+    background: #0a2540;
+    color: white;
+    padding: 0.4em 0.6em;
+    text-align: left;
+    font-weight: 600;
+  }
+  td {
+    padding: 0.35em 0.6em;
+    border-bottom: 1px solid #ddd;
+  }
+  tbody tr:nth-child(even) { background: #f4f7fb; }
+  tbody tr:nth-child(odd)  { background: #ffffff; }
+
+  ul, ol { margin: 0 0 0.8em 1.2em; padding-left: 1em; }
+  li { margin-bottom: 0.3em; }
+
+  .seccion-intro {
+    background: #f4f7fb;
+    border-left: 3px solid #0a2540;
+    padding: 0.5em 0.8em;
+    margin: 0.8em 0 1.2em 0;
+    font-size: 10.5pt;
+  }
+
+  .conclusion {
+    background: #f9f9f6;
+    border-left: 3px solid #b08800;
+    padding: 0.6em 0.9em;
+    margin: 1em 0;
+    font-size: 10.5pt;
+  }
+  .conclusion strong { color: #6a4f00; }
+
+  .page-break { page-break-before: always; }
+
+</style></head>
+<body>
+<div class="cover">
+  <img class="escudo" src="../assets/escudo_unam.jpg" alt="Escudo UNAM">
+  <div class="universidad">UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO</div>
+  <div class="linea"></div>
+  <div class="titulo">Práctica 3.2: Clasificación</div>
+  <div class="subtitulo">Unidad 3 · Árbol de decisión, Regresión multinomial y CHAID</div>
+  <div class="linea"></div>
+  <div class="alumno">Yago Raul Huerta Orozco</div>
+  <div class="programa">Diplomado de Técnicas Estadísticas y Minería de Datos</div>
+  <div class="fecha">Octubre 2026</div>
+  <div class="dataset"><strong>Dataset:</strong> Netflix_clean.csv<br>15,330 títulos · Objetivo: Calidad IMDb (Baja / Media / Alta)</div>
+</div>
+
+<h1>Reporte de análisis</h1>
+
+<h2>1. Planteamiento</h2>
+<p>La variable objetivo es la calidad del título según IMDb. Se tomó <code>IMDb Score</code> y se cortó en terciles: <strong>Baja</strong> (≤ 6.3), <strong>Media</strong> (6.3 a 6.9) y <strong>Alta</strong> (&gt; 6.9). Las clases quedan en 35.7%, 32.0% y 32.3%; un modelo que siempre dijera «Baja» acertaría 35.7%.</p>
+<p>Los datos se dividieron en 70% entrenamiento (10,731 títulos) y 30% prueba (4,599), estratificados por clase. Se usaron 49 predictoras: votos de IMDb (log), años de estreno y de llegada a Netflix, número de géneros e idiomas, duración, serie/película, inglés, los 12 géneros más frecuentes y la clasificación por edad. Para CHAID, las numéricas se pasaron a quintiles. Los hiperparámetros se eligieron con validación cruzada de 5 pliegues sobre entrenamiento, maximizando el AUC macro uno-contra-resto.</p>
+
+<div class="conclusion"><strong>Fuga de información:</strong> <code>Hidden Gem Score</code> se dejó fuera de las predictoras. Junto con los votos llega a AUC 0.93 con un árbol sencillo (los votos solos dan 0.68). Al agregarla al modelo, el AUC del árbol sube de 0.80 a 0.95. <code>Rotten Tomatoes</code> y <code>Metacritic</code> se descartaron por tener 59% y 72% de faltantes.</div>
+
+<h2>2. Resultados por modelo</h2>
+<ul>
+<li><strong>Árbol de decisión</strong> (profundidad 15, 127 hojas, <code>min_samples_leaf=60</code>): accuracy 0.638 y AUC macro 0.800. La raíz separa a los títulos sin géneros (11.1% del entrenamiento), que son 98% Media. Con géneros divide por <code>Es serie</code>: las películas (68.1%) son 46% Baja y las series (20.8%) son 59% Alta, y en ambas el siguiente corte son los votos. Las variables que más pesan son los votos, <code>Es serie</code> y el número de géneros.</li>
+<li><strong>Regresión multinomial</strong> (<code>C=100</code>): accuracy 0.615 y AUC 0.778. Es la más estable (la brecha de AUC entre entrenamiento y prueba es casi cero) y la que menos errores graves comete (13.7%). Ser serie, tener más géneros y durar más empujan hacia Alta; Thriller y Comedia, hacia Baja.</li>
+<li><strong>CHAID</strong> (profundidad 7, 140 hojas): accuracy 0.629 y AUC 0.787. La raíz divide por <code>N géneros</code> (χ² = 2,764). Con 2 o 3 géneros, los títulos de menos de 30 minutos son 60% Alta (n = 1,066) y los de 1 a 2 horas son 53% Baja (n = 2,954). Duración y «Es serie» casi coinciden: 3,739 de las 3,740 series duran menos de 30 minutos.</li>
+</ul>
+<p>Los títulos sin géneros (1,708 en total) son casi todos los que tienen la calificación imputada con la mediana: en entrenamiento son 98% Media. El árbol y CHAID los mandan a Media, y por eso su precisión en esa clase es tan alta (0.87 y 0.85).</p>
+
+<figure><img src="figures/p32_4_arbol.png" style="max-height:6.2cm"><figcaption>Árbol de decisión: primeros dos niveles (verde = Media, naranja = Baja, morado = Alta; <em>value</em> = proporciones de [Baja, Media, Alta]).</figcaption></figure>
+
+<figure><img src="figures/p32_6_chaid_arbol.png" style="max-height:6cm"><figcaption>CHAID: primeros dos niveles (verde = más calidad Alta, rojo = más Baja). Votos IMDb en quintiles, de 0 (menos votos) a 4 (más votos).</figcaption></figure>
+
+<h2>3. Comparación</h2>
+<table>
+<thead><tr><th>Modelo</th><th>Accuracy</th><th>Precisión (macro)</th><th>Recall (macro)</th><th>F1 (macro)</th><th>AUC (macro)</th></tr></thead>
+<tbody>
+<tr><td>Árbol de decisión</td><td><strong>0.638</strong></td><td><strong>0.685</strong></td><td><strong>0.633</strong></td><td><strong>0.631</strong></td><td><strong>0.800</strong></td></tr>
+<tr><td>Regresión multinomial</td><td>0.615</td><td>0.621</td><td>0.610</td><td>0.607</td><td>0.778</td></tr>
+<tr><td>CHAID</td><td>0.629</td><td>0.673</td><td>0.624</td><td>0.623</td><td>0.787</td></tr>
+</tbody></table>
+<p style="text-align:center;font-size:9.5pt;color:#555;margin-top:-0.6em"><em>Métricas sobre el conjunto de prueba (n = 4,599). AUC macro uno-contra-resto.</em></p>
+
+<figure><img src="figures/p32_7_roc_conjunta.png" style="max-height:4.4cm"><figcaption>Curvas ROC uno-contra-resto por clase (entre paréntesis, el AUC).</figcaption></figure>
+<figure><img src="figures/p32_7_matrices.png" style="max-height:4.2cm"><figcaption>Matrices de confusión normalizadas por fila (conjunto de prueba).</figcaption></figure>
+<figure><img src="figures/p32_7_importancia.png" style="max-height:5.2cm"><figcaption>Importancia relativa por permutación (cada modelo suma 1; las dummies de clasificación por edad se agrupan).</figcaption></figure>
+
+<h2>4. Conclusiones</h2>
+<ul>
+<li>El <strong>árbol de decisión</strong> tiene el mejor desempeño en accuracy, AUC y F1. CHAID queda muy cerca (unos 40 títulos de diferencia en accuracy y 0.013 de AUC) y la <strong>regresión multinomial</strong> un poco más abajo.</li>
+<li>Los tres coinciden en las variables que más pesan: votos, tipo de título (serie o duración corta) y número de géneros, y después Drama, Thriller, Comedia y la clasificación por edad.</li>
+<li>Alta y Baja se separan mejor (AUC por clase de 0.80 a 0.83) que Media (0.72 a 0.76). El recall de Media es el más bajo en los tres (0.44 a 0.47).</li>
+<li>Ningún modelo pasa de 64% de accuracy (piso de 35.7%). Con variables de catálogo no se captura la calidad percibida. Con <code>Hidden Gem Score</code> el árbol llegaría a 83%, pero por fuga de información.</li>
+<li>Si lo que importa es predecir, el árbol. Si se busca estabilidad y coeficientes fáciles de explicar, la regresión multinomial. CHAID sirve para describir segmentos, leyendo solo sus dos primeros niveles.</li>
+</ul>
+</body></html>
